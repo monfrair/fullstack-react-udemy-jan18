@@ -11,6 +11,7 @@ clientSecret: keys.googleClientSecret,
 callbackURL: '/auth/google/callback'
 }, 
 (accessToken, refreshToken, profile, done) => {
+	console.log("got this far")
 	new User({ googleId: profile.id }).save();
 }
 )

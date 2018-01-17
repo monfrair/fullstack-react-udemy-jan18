@@ -11,7 +11,7 @@ require('./services/passport');
 
 // Connect to the Mongo DB
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/fullstack-react-udemy-jan18",
+  process.env.MONGODB_URI || "mongodb://localhost/testdb",
   {
     useMongoClient: true
   }
@@ -24,6 +24,8 @@ require('./routes/authRoutes')(app);
 
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT);
+app.listen(PORT, function() {
+	console.log("Now listening on port " + PORT);
+});
 
 
