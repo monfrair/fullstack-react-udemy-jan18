@@ -11,8 +11,17 @@ clientSecret: keys.googleClientSecret,
 callbackURL: '/auth/google/callback'
 }, 
 (accessToken, refreshToken, profile, done) => {
-	console.log("got this far")
-	new User({ googleId: profile.id }).save();
+	User.findOne({ googleId: profile.id}).then((existingUser) => {
+		if (existingUser) {
+			//user id already in DB
+			done(null, existingUser);
+		} else {
+			//is a new user make new record
+			new User({ googleId: profile.id }).save().then(user => done(null, user));
+		}
+	})
+	
+	
 }
 )
 );
